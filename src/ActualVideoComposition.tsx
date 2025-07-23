@@ -1,4 +1,7 @@
-import { Video, AbsoluteFill, Sequence, Audio } from 'remotion';
+import { Video, AbsoluteFill, Audio } from 'remotion';
+import { TransitionSeries, linearTiming, springTiming } from '@remotion/transitions';
+import { fade } from '@remotion/transitions/fade';
+import { wipe } from '@remotion/transitions/wipe';
 
 export const ActualVideoComposition: React.FC = () => {
   // Actual video durations in seconds at 30fps
@@ -24,41 +27,58 @@ export const ActualVideoComposition: React.FC = () => {
         startFrom={0}
       />
       
-      {/* Video 1: bles-720p.mp4 (0-16 seconds) */}
-      <Sequence from={0} durationInFrames={videoFrameDurations[0]}>
-        <Video
-          src={videos[0]}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
+      <TransitionSeries>
+        {/* Video 1: bles-720p.mp4 */}
+        <TransitionSeries.Sequence durationInFrames={videoFrameDurations[0]}>
+          <Video
+            src={videos[0]}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain'
+            }}
+          />
+        </TransitionSeries.Sequence>
+        
+        {/* Fade transition between video 1 and 2 */}
+        <TransitionSeries.Transition
+          presentation={fade()}
+          timing={springTiming({ 
+            config: { damping: 200 },
+            durationInFrames: 15 // 0.5 second fade
+          })}
         />
-      </Sequence>
-      
-      {/* Video 2: Brian.mp4 (16-28 seconds) */}
-      <Sequence from={videoFrameDurations[0]} durationInFrames={videoFrameDurations[1]}>
-        <Video
-          src={videos[1]}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
+        
+        {/* Video 2: Brian.mp4 */}
+        <TransitionSeries.Sequence durationInFrames={videoFrameDurations[1]}>
+          <Video
+            src={videos[1]}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain'
+            }}
+          />
+        </TransitionSeries.Sequence>
+        
+        {/* Wipe transition between video 2 and 3 */}
+        <TransitionSeries.Transition
+          presentation={wipe({ direction: 'from-left' })}
+          timing={linearTiming({ durationInFrames: 15 })} // 0.5 second wipe
         />
-      </Sequence>
-      
-      {/* Video 3: sydney-einstein-720p.mp4 (28-51 seconds) */}
-      <Sequence from={videoFrameDurations[0] + videoFrameDurations[1]} durationInFrames={videoFrameDurations[2]}>
-        <Video
-          src={videos[2]}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
-        />
-      </Sequence>
+        
+        {/* Video 3: sydney-einstein-720p.mp4 */}
+        <TransitionSeries.Sequence durationInFrames={videoFrameDurations[2]}>
+          <Video
+            src={videos[2]}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain'
+            }}
+          />
+        </TransitionSeries.Sequence>
+      </TransitionSeries>
     </AbsoluteFill>
   );
 }; 

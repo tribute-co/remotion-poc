@@ -7,12 +7,20 @@ function App() {
   
   // Actual video durations in seconds
   const videoDurations = [16, 12, 23]; // bles, brian, sydney
-  const totalDurationInSeconds = videoDurations.reduce((sum, duration) => sum + duration, 0);
-  const totalDurationInFrames = totalDurationInSeconds * fps; // 51 seconds = 1530 frames
+  const totalSequenceDuration = videoDurations.reduce((sum, duration) => sum + duration, 0);
+  
+  // Transition durations in seconds
+  const fadeTransitionDuration = 15 / fps; // 0.5 seconds
+  const wipeTransitionDuration = 15 / fps; // 0.5 seconds
+  const totalTransitionDuration = fadeTransitionDuration + wipeTransitionDuration;
+  
+  // Total duration = sum of sequences - sum of transitions
+  const totalDurationInSeconds = totalSequenceDuration - totalTransitionDuration;
+  const totalDurationInFrames = Math.round(totalDurationInSeconds * fps); // ~1500 frames
 
   return (
     <div className="app">
-      <h1>Remotion Player Test</h1>
+      <h1>Remotion Player Test - 3 Videos in Sequence</h1>
       
       <div style={{ 
         display: 'flex', 
