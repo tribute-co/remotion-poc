@@ -20,27 +20,32 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Remotion Player Test - 3 Videos in Sequence</h1>
+      <h1>Remotion Player Test</h1>
       
       <div style={{ 
         display: 'flex', 
         justifyContent: 'center',
-        width: '100%'
+        width: '100%',
       }}>
-        <Player
-          component={ActualVideoComposition}
-          durationInFrames={totalDurationInFrames}
-          compositionWidth={1280}
-          compositionHeight={720}
-          fps={fps}
-          style={{
-            width: 800,
-            height: 450,
-          }}
-          controls
-          autoPlay={false}
-          loop={false}
-        />
+        <div style={{
+          width: '100%',
+          maxWidth: '800px',
+          aspectRatio: '16/9',
+        }}>
+          <Player
+            component={ActualVideoComposition}
+            durationInFrames={totalDurationInFrames}
+            compositionWidth={1280}
+            compositionHeight={720}
+            fps={fps}
+            style={{
+              width: '100%',
+            }}
+            controls
+            autoPlay={false}
+            loop={false}
+          />
+        </div>
       </div>
     </div>
   );
