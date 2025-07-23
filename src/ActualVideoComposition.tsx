@@ -16,6 +16,14 @@ export const ActualVideoComposition: React.FC = () => {
     '/sydney-einstein-720p.mp4'
   ];
   
+  // Detect mobile device for audio volume adjustment
+  const isMobile = typeof window !== 'undefined' && 
+    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+     window.innerWidth <= 768);
+  
+  // Use lower volume on mobile devices due to browser audio handling differences
+  const audioVolume = isMobile ? 0.03 : 0.10; // 3% on mobile, 10% on desktop
+  
   return (
     <AbsoluteFill style={{ 
       backgroundColor: 'black'
@@ -23,7 +31,7 @@ export const ActualVideoComposition: React.FC = () => {
       {/* Background Audio - plays throughout entire composition */}
       <Audio
         src="/827581_826370_Assaf_Ayalon_-_Blues_Night_-__AO-000269-1_-_Master_V4_-_82_Bpm_-_300123_-_BOV_-_ORG_-_2444.mp3"
-        volume={0.10} // 10% volume
+        volume={audioVolume}
         startFrom={0}
       />
       
