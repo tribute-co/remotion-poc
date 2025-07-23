@@ -2,6 +2,8 @@ import { Video, AbsoluteFill, Audio } from 'remotion';
 import { TransitionSeries, linearTiming, springTiming } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
 import { wipe } from '@remotion/transitions/wipe';
+import { preloadVideo, preloadAudio } from '@remotion/preload';
+import { useEffect } from 'react';
 
 export const ActualVideoComposition: React.FC = () => {
   // Actual video durations in seconds at 30fps
@@ -16,13 +18,26 @@ export const ActualVideoComposition: React.FC = () => {
     '/sydney-einstein-720p.mp4'
   ];
   
+  const audioSrc = '/827581_826370_Assaf_Ayalon_-_Blues_Night_-__AO-000269-1_-_Master_V4_-_82_Bpm_-_300123_-_BOV_-_ORG_-_2444.mp3';
+  
+  // Preload all assets for smooth mobile playback
+  useEffect(() => {
+    // Preload all videos
+    videos.forEach(videoSrc => {
+      preloadVideo(videoSrc);
+    });
+    
+    // Preload background audio
+    preloadAudio(audioSrc);
+  }, []);
+  
   return (
     <AbsoluteFill style={{ 
       backgroundColor: 'black'
     }}>
       {/* Background Audio - plays throughout entire composition */}
       <Audio
-        src="/827581_826370_Assaf_Ayalon_-_Blues_Night_-__AO-000269-1_-_Master_V4_-_82_Bpm_-_300123_-_BOV_-_ORG_-_2444.mp3"
+        src={audioSrc}
         volume={0.10} // 10% volume - now works on iOS Safari too!
         useWebAudioApi
         crossOrigin="anonymous"
