@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Remotion Player Test - 3 Videos in Sequence</h1>
+      <h1>Remotion Player Test</h1>
       
       <div style={{ 
         display: 'flex', 

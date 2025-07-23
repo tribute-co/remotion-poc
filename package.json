@@ -1,7 +1,7 @@
 {
   "name": "remotion-player-test",
   "version": "1.0.0",
-  "description": "Test Remotion Player with 3 videos in sequence",
+  "description": "Remotion Player Test",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

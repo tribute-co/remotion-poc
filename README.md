@@ -1,4 +1,4 @@
-# Remotion Player Test - 3 Videos in Sequence
+# Remotion Player Test
 
 This project demonstrates how to use Remotion's Player component to play 3 videos in sequence. It showcases playing your MP4 files one after another in a single composition.
 
